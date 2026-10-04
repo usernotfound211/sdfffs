@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar sesión en Cuentas de Google</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;550;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', 'Google Sans', sans-serif;
+            background-color: #f0f4f9;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between items-center p-4 sm:p-8">
+
+    <main class="w-full flex-grow flex items-center justify-center">
+        <div id="card-container" class="bg-white w-full max-w-[960px] rounded-[28px] shadow-sm border border-[#e3e3e3] p-8 sm:py-16 sm:px-20 grid grid-cols-1 md:grid-cols-2 gap-8 items-center transition-all duration-300">
+            
+            <!-- STEP 1: Google Login Form -->
+            <div id="login-view" class="flex flex-col justify-center space-y-6 md:col-span-2">
+                <!-- Google Multi-color Logo SVG -->
+                <div class="flex items-center">
+                    <svg class="w-8 h-8" viewBox="0 0 24 24">
+                        <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/>
+                        <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.13 0-5.78-2.11-6.73-4.96H1.15v3.15C3.14 21.35 7.28 24 12 24z"/>
+                        <path fill="#FBBC05" d="M5.27 14.24c-.25-.72-.38-1.49-.38-2.24s.13-1.52.38-2.24V6.61H1.15C.42 8.08 0 9.73 0 12s.42 3.92 1.15 5.39l4.12-3.15z"/>
+                        <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.28 0 3.14 2.65 1.15 6.61l4.12 3.15c.95-2.85 3.6-4.96 6.73-4.96z"/>
+                    </svg>
+                </div>
+
+                <!-- Headings -->
+                <div>
+                    <h1 class="text-[32px] font-normal text-[#1f1f1f] tracking-tight leading-10 mb-2">Inicia sesión</h1>
+                    <p class="text-base font-normal text-[#1f1f1f]">Utiliza tu cuenta de Google</p>
+                </div>
+
+                <!-- Form Inputs & Links -->
+                <form id="google-form" class="space-y-6 pt-2">
+                    <div class="relative">
+                        <input type="email" id="email-input" required
+                            class="peer w-full h-[56px] px-4 pt-4 pb-2 text-base text-[#1f1f1f] bg-transparent border border-[#747775] rounded-[4px] focus:border-[#0b57d0] focus:border-2 focus:outline-none transition-colors placeholder-transparent"
+                            placeholder="Correo electrónico o teléfono" />
+                        <label for="email-input"
+                            class="absolute left-4 top-4 text-[#747775] text-base bg-white px-1 transition-all duration-200 pointer-events-none peer-focus:-top-2.5 peer-focus:text-xs peer-focus:text-[#0b57d0] peer-[:not(:placeholder-shown)]:-top-2.5 peer-[:not(:placeholder-shown)]:text-xs">
+                            Correo electrónico o teléfono
+                        </label>
+                    </div>
+
+                    <div>
+                        <a href="#" class="text-[#0b57d0] font-medium text-sm hover:underline">¿Has olvidado tu correo electrónico?</a>
+                    </div>
+
+                    <div class="text-sm text-[#444746] pt-2">
+                        ¿No es tu ordenador? Usa el modo Invitado para iniciar sesión de forma privada. 
+                        <a href="#" class="text-[#0b57d0] font-medium hover:underline">Más información sobre cómo usar el modo Invitado</a>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex items-center justify-between pt-6">
+                        <button type="button" class="text-[#0b57d0] font-medium text-sm px-6 py-2.5 rounded-full hover:bg-[#f2f6fc] transition-colors">
+                            Crear cuenta
+                        </button>
+                        <button type="submit" class="bg-[#0b57d0] text-white font-medium text-sm px-6.5 py-3 rounded-full hover:bg-[#0842a0] hover:shadow-md transition-all">
+                            Siguiente
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+
+            <!-- STEP 2: Demo password view (does not store or send passwords) -->
+            <div id="password-view" class="hidden flex-col justify-center space-y-6 md:col-span-2">
+                <div>
+                    <h2 class="text-2xl font-normal text-[#1f1f1f] mb-2">Introduce tu contraseña</h2>
+                    <p class="text-sm text-[#5f6368]">Simulación de demostración para <span id="display-email" class="font-medium"></span>.</p>
+                </div>
+
+                <form id="password-form" class="space-y-6 pt-2">
+                    <div class="relative">
+                        <input type="password" id="password-input" required autocomplete="off"
+                            class="peer w-full h-[56px] px-4 pt-4 pb-2 text-base text-[#1f1f1f] bg-transparent border border-[#747775] rounded-[4px] focus:border-[#0b57d0] focus:border-2 focus:outline-none transition-colors placeholder-transparent"
+                            placeholder="Contraseña de demostración" />
+                        <label for="password-input"
+                            class="absolute left-4 top-4 text-[#747775] text-base bg-white px-1 transition-all duration-200 pointer-events-none peer-focus:-top-2.5 peer-focus:text-xs peer-focus:text-[#0b57d0] peer-[:not(:placeholder-shown)]:-top-2.5 peer-[:not(:placeholder-shown)]:text-xs">
+                            Contraseña
+                        </label>
+                    </div>
+
+                    <p class="text-xs text-[#5f6368]">
+                        Esta simulación no guarda ni envía la contraseña introducida.
+                    </p>
+
+                    <div class="flex items-center justify-between pt-4">
+                        <button type="button" id="password-back-btn"
+                            class="text-[#0b57d0] font-medium text-sm px-4 py-2.5 rounded-full hover:bg-[#f2f6fc] transition-colors">
+                            ← Volver
+                        </button>
+                        <button type="submit"
+                            class="bg-[#0b57d0] text-white font-medium text-sm px-6 py-3 rounded-full hover:bg-[#0842a0] hover:shadow-md transition-all">
+                            Siguiente
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- STEP 3: Connection Error View (Hidden initially) -->
+            <div id="error-view" class="hidden flex-col justify-center space-y-6 md:col-span-2">
+                <div>
+                    <h2 class="text-2xl font-normal text-[#1f1f1f] mb-2">Sin conexión a Internet</h2>
+                    <p class="text-sm text-[#5f6368]">El servidor de Google Classroom no puede verificar tus credenciales en este momento.</p>
+                </div>
+
+                <div class="bg-[#f8f9fa] border border-[#dadce0] rounded-lg p-5 text-sm text-[#3c4043] space-y-2">
+                    <p class="font-medium text-[#202124]">Diagnóstico de red:</p>
+                    <ul class="list-disc pl-5 space-y-1 text-[#5f6368]">
+                        <li>Comprueba si hay errores en el cable, el módem y el router.</li>
+                        <li>Vuelve a conectarte a una red Wi-Fi válida.</li>
+                        <li>El acceso local a la API de autenticación fue interrumpido por seguridad.</li>
+                    </ul>
+                </div>
+
+                <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4">
+                    <button id="back-btn" class="text-[#0b57d0] font-medium text-sm hover:underline">
+                        ← Volver a intentar
+                    </button>
+                    <a href="https://classroom.google.com" target="_blank" rel="noopener noreferrer"
+                        class="w-full sm:w-auto text-center bg-[#0b57d0] text-white font-medium text-sm px-8 py-3 rounded-full hover:bg-[#0842a0] hover:shadow-md transition-all">
+                        Reintentar
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="w-full max-w-[960px] flex flex-col sm:flex-row items-center justify-between text-xs text-[#5f6368] py-4 px-2 gap-4">
+        <!-- Language selector -->
+        <div class="relative">
+            <select aria-label="Español (España)" class="bg-transparent text-[#444746] py-1 px-2 rounded hover:bg-black/5 cursor-pointer outline-none">
+                <option>Español (España)</option>
+                <option>English (United States)</option>
+                <option>Français</option>
+                <option>Português (Brasil)</option>
+            </select>
+        </div>
+
+        <!-- Right footer links -->
+        <div class="flex items-center space-x-6">
+            <a href="https://support.google.com" target="_blank" class="hover:text-[#202124]">Ayuda</a>
+            <a href="https://policies.google.com/privacy" target="_blank" class="hover:text-[#202124]">Privacidad</a>
+            <a href="https://policies.google.com/terms" target="_blank" class="hover:text-[#202124]">Términos</a>
+        </div>
+    </footer>
+
+    <script>
+        const googleForm = document.getElementById('google-form');
+        const loginView = document.getElementById('login-view');
+        const passwordView = document.getElementById('password-view');
+        const errorView = document.getElementById('error-view');
+
+        const backBtn = document.getElementById('back-btn');
+        const passwordBackBtn = document.getElementById('password-back-btn');
+
+        const emailInput = document.getElementById('email-input');
+        const passwordInput = document.getElementById('password-input');
+        const displayEmail = document.getElementById('display-email');
+        const passwordForm = document.getElementById('password-form');
+
+        googleForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const email = emailInput.value.trim();
+            if (!email) return;
+
+            displayEmail.textContent = email;
+
+            loginView.classList.add('hidden');
+            loginView.classList.remove('flex');
+
+            passwordView.classList.remove('hidden');
+            passwordView.classList.add('flex');
+
+            passwordInput.value = '';
+            passwordInput.focus();
+        });
+
+        passwordForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const email = emailInput.value.trim().toLowerCase();
+            const password = passwordInput.value;
+
+            // Si coincide con las credenciales, redirige limpiando el historial local con location.assign
+            if (email === 'funny@gmail.com' && password === 'funny') {
+                // Sobrescribe el documento actual en el historial eliminando el rastro local en la medida de lo posible
+                setTimeout(() => {
+                    window.location.replace('https://usernotfound211.github.io/Classroom-class/');
+                }, 50);
+                return;
+            }
+
+            // Comportamiento por defecto si no son correctas
+            if (!passwordInput.value) return;
+
+            passwordView.classList.add('hidden');
+            passwordView.classList.remove('flex');
+
+            errorView.classList.remove('hidden');
+            errorView.classList.add('flex');
+
+            passwordInput.value = '';
+        });
+
+        passwordBackBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+
+            passwordView.classList.add('hidden');
+            passwordView.classList.remove('flex');
+
+            loginView.classList.remove('hidden');
+            loginView.classList.add('flex');
+
+            passwordInput.value = '';
+            emailInput.focus();
+        });
+
+        backBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+
+            errorView.classList.add('hidden');
+            errorView.classList.remove('flex');
+
+            loginView.classList.add('hidden');
+            loginView.classList.add('flex');
+
+            emailInput.value = '';
+            passwordInput.value = '';
+            emailInput.focus();
+        });
+    </script>
+</body>
+</html>
